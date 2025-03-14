@@ -1418,7 +1418,7 @@
                 // Добавляем системное сообщение
                 messages.push({
                     role: 'system',
-                    content: 'Ты полезный ассистент KirixGPT. Пожалуйста, придерживайся следующих принципов в своих ответах:\n\n1. Структурируй информацию исключительно четко и логично, используя заголовки (##), подзаголовки (###) и вложенные списки.\n2. Для сложных тем создавай подробные планы или пошаговые инструкции с нумерацией и вложенными пунктами.\n3. Используй маркированные списки (- или *) для перечисления пунктов и нумерованные списки (1., 2.) для последовательных действий.\n4. Выделяй ключевые термины и важные моменты с помощью **жирного текста** и *курсива* для акцентов.\n5. Разделяй большие блоки текста на логические параграфы для лучшего восприятия, используя пустые строки между ними.\n6. При ответе на сложные вопросы начинай с краткого резюме, а затем переходи к подробному объяснению с использованием вложенной структуры.\n7. Используй таблицы для сравнения информации, представления данных и создания наглядных материалов.\n8. Завершай ответы кратким выводом или заключением, суммирующим ключевые моменты.\n9. Если создаешь учебные материалы или планы, обязательно включай цели, ожидаемые результаты, методические рекомендации и критерии оценивания.\n10. Всегда стремись к ясности, точности и полноте информации, избегая общих фраз.\n11. Используй профессиональную терминологию соответствующей области знаний.\n12. Для учебных планов создавай детальную временную разбивку и логические блоки материала.\n13. При создании документов используй соответствующие форматы и структуру, принятые в профессиональной среде.\n14. Включай практические примеры, кейсы и иллюстративный материал для лучшего понимания.\n15. Предлагай дополнительные ресурсы и материалы для углубленного изучения темы.'
+                    content: 'You are KirixGPT, a helpful assistant. Please adhere to the following principles in your responses:\n\n1. Structure information clearly and logically, using headings (##), subheadings (###), and nested lists.\n2. For complex topics, create detailed plans or step-by-step instructions with numbering and nested points.\n3. Use bullet points (- or *) for listing items and numbered lists (1., 2.) for sequential actions.\n4. Highlight key terms and important points using **bold text** and *italics* for emphasis.\n5. Divide large blocks of text into logical paragraphs for better readability, using empty lines between them.\n6. When answering complex questions, start with a brief summary, then move to a detailed explanation using nested structure.\n7. Use tables to compare information, present data, and create visual materials.\n8. End answers with a brief conclusion or summary of key points.\n9. When creating educational materials or plans, always include objectives, expected outcomes, methodological recommendations, and evaluation criteria.\n10. Always strive for clarity, accuracy, and completeness of information, avoiding general phrases.\n11. Use professional terminology appropriate to the relevant field of knowledge.\n12. For educational plans, create detailed time breakdowns and logical blocks of material.\n13. When creating documents, use appropriate formats and structures accepted in professional environments.\n14. Include practical examples, case studies, and illustrative material for better understanding.\n15. Suggest additional resources and materials for in-depth study of the topic.\n16. Provide maximally detailed and comprehensive answers, not aiming for brevity.\n17. For each section or topic, thoroughly describe goals and objectives, dividing them into educational, developmental, and formative.\n18. Explain in detail the methodology and approaches used in the material.\n19. For educational plans and methodological materials, develop detailed recommendations for implementing each stage.\n20. Include expanded explanations for each point, not limited to simple enumeration.\n21. Suggest alternative approaches and options for solving problems.\n22. For each block of information, indicate practical significance and applicability in real situations.\n23. Use multi-level structure for complex topics, with details at each level.\n24. Provide specific examples from practice to illustrate theoretical positions.\n25. Develop comprehensive evaluation systems with detailed criteria and indicators.\n26. Explore each topic in maximum depth, providing exhaustive information on all aspects of the question.\n27. Consider the topic from different perspectives, including various scientific schools, approaches, and paradigms.\n28. Analyze the historical context of the development of ideas and concepts within the discussed topic.\n29. Highlight discussion points and problematic aspects of the topic, presenting arguments from different sides.\n30. Include interdisciplinary connections and show how the topic relates to other fields of knowledge.\n31. Provide current statistical data, research results, and scientific facts on the topic.\n32. Break down complex concepts into component parts and explain each in detail and accessibly.\n33. Use analogies, metaphors, and comparisons to explain abstract concepts.\n34. Suggest practical tasks, exercises, and self-check questions on the topic.\n35. Include a glossary of key terms with expanded definitions.\n36. Analyze current trends and development prospects in the field under consideration.\n37. Provide information about leading specialists, experts, and their contributions to the development of the topic.\n38. Consider the practical application of theoretical knowledge in professional activities.\n39. Include recommendations for further self-education and professional development in the field.\n40. Suggest innovative approaches and creative solutions within the discussed topic.\n41. When creating lesson plans or educational materials, follow this comprehensive structure:\n    - General information (subject, topic, type of lesson, duration, target audience)\n    - Lesson objectives (educational, developmental, formative)\n    - Expected outcomes (specific knowledge and skills students will acquire)\n    - Equipment and materials needed\n    - Detailed lesson structure with timing for each section\n    - Organizational moment (introduction, attendance check)\n    - Motivation of learning activity (discussion questions, videos)\n    - Theoretical part (detailed content breakdown with key concepts)\n    - Practical part (detailed description of exercises, group work, case studies)\n    - Summary and reflection (key takeaways, discussion questions)\n    - Homework assignment (detailed description with requirements)\n    - Methodological recommendations for the teacher (preparation, implementation, assessment)\n    - Assessment criteria (detailed scoring system)\n    - Bibliography (relevant and up-to-date sources)\n42. For any educational content, provide a minimum of 8-10 references to relevant literature, including recent publications.\n43. When discussing methodologies, include at least 3-4 different approaches or methods with their comparative analysis.\n44. For practical exercises, provide detailed instructions, timing, materials needed, and expected outcomes.\n45. Include assessment rubrics with specific criteria and descriptors for different performance levels.\n46. Provide examples of potential student responses or work products for practical tasks.\n47. For each theoretical concept, include at least 2-3 practical applications or examples.\n48. When creating plans, include contingency options or alternative activities.\n49. Address potential challenges or difficulties that might arise and suggest solutions.\n50. Include reflection questions for both students and teachers to evaluate the effectiveness of the learning process.\n51. When создавая планы уроков, обязательно разрабатывай ОЧЕНЬ ПОДРОБНОЕ содержание каждого раздела, а не просто перечисление пунктов.\n52. Для теоретической части урока предоставляй полный текст лекции или презентации, который преподаватель может использовать.\n53. Для практических заданий описывай пошаговые инструкции, примеры выполнения и ожидаемые результаты.\n54. В разделе "Актуализация опорных знаний" приводи конкретные вопросы с примерами ответов.\n55. Для каждого вида деятельности на уроке указывай не только время, но и методические приемы, формы работы.\n56. В разделе "Подведение итогов" предлагай конкретные вопросы для рефлексии и анализа достигнутых результатов.\n57. Для домашних заданий разрабатывай детальные инструкции, критерии оценки и примеры выполнения.\n58. В методических рекомендациях предоставляй конкретные советы по подготовке к уроку, возможным трудностям и способам их преодоления.\n59. Для каждого теоретического положения приводи минимум 2-3 практических примера из реальной жизни.\n60. Включай в план урока интерактивные методы обучения с подробным описанием их реализации.\n61. Предлагай альтернативные варианты проведения каждого этапа урока для разных условий и возможностей.\n62. Разрабатывай дифференцированные задания для учащихся с разным уровнем подготовки.\n63. Включай междисциплинарные связи с конкретными примерами интеграции знаний из разных областей.\n64. Предоставляй подробные сценарии ролевых игр и симуляций с репликами и инструкциями для участников.\n65. Для оценивания разрабатывай детальные рубрики с критериями и дескрипторами для каждого уровня достижений.'
                 });
                 
                 // Добавляем историю диалога (не более 10 последних сообщений для экономии токенов)
@@ -1515,6 +1515,9 @@
                 addToHistory(fullText, false);
                 
                 chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Сохраняем оригинальный Markdown в атрибуте data-original-markdown
+                messageDiv.dataset.originalMarkdown = fullText;
                 
             } catch (error) {
                 contentDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> Ошибка: ${error.message}`;
@@ -1714,56 +1717,176 @@
             
             // Получаем текст в формате Markdown, если возможно
             let text;
-            if (content.querySelector('pre code')) {
+            
+            // Проверяем, есть ли у сообщения атрибут с оригинальным Markdown
+            const messageDiv = button.closest('.message');
+            if (messageDiv && messageDiv.dataset.originalMarkdown) {
+                // Если есть сохраненный Markdown, используем его
+                text = messageDiv.dataset.originalMarkdown;
+            } else if (content.querySelector('pre code')) {
                 // Если есть блок кода, извлекаем его содержимое
                 const codeBlock = content.querySelector('pre code');
                 text = codeBlock.textContent;
             } else {
-                // Иначе берем весь текст
-                text = content.textContent.trim();
+                // Пытаемся восстановить Markdown из HTML
+                text = convertHtmlToMarkdown(content);
             }
             
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = button.innerHTML;
-                button.innerHTML = '<i class="fas fa-check"></i> Скопировано';
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                }, 2000);
-            });
-        }
-
-        function copyCodeBlock(button) {
-            // Находим родительский pre элемент
-            const preElement = button.closest('pre');
-            if (!preElement) {
-                console.error('Не найден родительский элемент pre');
-                return;
-            }
-            
-            // Находим элемент code внутри pre
-            const codeElement = preElement.querySelector('code');
-            if (!codeElement) {
-                console.error('Не найден элемент code внутри pre');
-                return;
-            }
-            
-            // Получаем текст кода
-            const codeText = codeElement.textContent;
-            
-            // Копируем в буфер обмена
-            navigator.clipboard.writeText(codeText).then(() => {
-                const originalText = button.innerHTML;
-                button.innerHTML = '<i class="fas fa-check"></i> Скопировано';
+                button.innerHTML = '<i class="fas fa-check"></i> ' + t('copied');
                 setTimeout(() => {
                     button.innerHTML = originalText;
                 }, 2000);
             }).catch(err => {
                 console.error('Ошибка при копировании:', err);
-                button.innerHTML = '<i class="fas fa-times"></i> Ошибка';
+                button.innerHTML = '<i class="fas fa-times"></i> ' + t('error');
                 setTimeout(() => {
-                    button.innerHTML = '<i class="fas fa-copy"></i> Копировать';
+                    button.innerHTML = '<i class="fas fa-copy"></i> ' + t('copy');
                 }, 2000);
             });
+        }
+
+        // Функция для преобразования HTML обратно в Markdown
+        function convertHtmlToMarkdown(element) {
+            let markdown = '';
+            
+            // Получаем все дочерние элементы
+            const children = element.childNodes;
+            
+            for (const node of children) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    // Текстовый узел
+                    markdown += node.textContent;
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    // Элемент
+                    const tagName = node.tagName.toLowerCase();
+                    
+                    switch (tagName) {
+                        case 'h1':
+                            markdown += '# ' + node.textContent + '\n\n';
+                            break;
+                        case 'h2':
+                            markdown += '## ' + node.textContent + '\n\n';
+                            break;
+                        case 'h3':
+                            markdown += '### ' + node.textContent + '\n\n';
+                            break;
+                        case 'h4':
+                            markdown += '#### ' + node.textContent + '\n\n';
+                            break;
+                        case 'h5':
+                            markdown += '##### ' + node.textContent + '\n\n';
+                            break;
+                        case 'h6':
+                            markdown += '###### ' + node.textContent + '\n\n';
+                            break;
+                        case 'p':
+                            markdown += convertHtmlToMarkdown(node) + '\n\n';
+                            break;
+                        case 'strong':
+                        case 'b':
+                            markdown += '**' + node.textContent + '**';
+                            break;
+                        case 'em':
+                        case 'i':
+                            markdown += '*' + node.textContent + '*';
+                            break;
+                        case 'a':
+                            markdown += '[' + node.textContent + '](' + node.getAttribute('href') + ')';
+                            break;
+                        case 'code':
+                            if (node.parentNode.tagName.toLowerCase() === 'pre') {
+                                // Блок кода
+                                let language = '';
+                                if (node.className) {
+                                    const match = node.className.match(/language-(\w+)/);
+                                    if (match) language = match[1];
+                                }
+                                markdown += '```' + language + '\n' + node.textContent + '\n```\n\n';
+                            } else {
+                                // Строчный код
+                                markdown += '`' + node.textContent + '`';
+                            }
+                            break;
+                        case 'pre':
+                            // Пропускаем, так как обрабатываем в case 'code'
+                            break;
+                        case 'ul':
+                            markdown += convertListToMarkdown(node, '*') + '\n';
+                            break;
+                        case 'ol':
+                            markdown += convertListToMarkdown(node, '1.') + '\n';
+                            break;
+                        case 'blockquote':
+                            markdown += '> ' + convertHtmlToMarkdown(node).replace(/\n/g, '\n> ') + '\n\n';
+                            break;
+                        case 'hr':
+                            markdown += '---\n\n';
+                            break;
+                        case 'table':
+                            markdown += convertTableToMarkdown(node) + '\n\n';
+                            break;
+                        case 'br':
+                            markdown += '\n';
+                            break;
+                        case 'div':
+                        case 'span':
+                            // Для div и span просто обрабатываем содержимое
+                            markdown += convertHtmlToMarkdown(node);
+                            break;
+                        case 'button':
+                            // Пропускаем кнопки
+                            break;
+                        default:
+                            // Для остальных элементов просто берем текст
+                            markdown += node.textContent;
+                    }
+                }
+            }
+            
+            return markdown;
+        }
+
+        // Функция для преобразования списков в Markdown
+        function convertListToMarkdown(listElement, marker) {
+            let markdown = '';
+            const items = listElement.querySelectorAll('li');
+            let counter = 1;
+            
+            items.forEach(item => {
+                const prefix = marker === '1.' ? counter + '.' : marker;
+                markdown += prefix + ' ' + convertHtmlToMarkdown(item) + '\n';
+                counter++;
+            });
+            
+            return markdown;
+        }
+
+        // Функция для преобразования таблиц в Markdown
+        function convertTableToMarkdown(tableElement) {
+            let markdown = '';
+            
+            // Получаем заголовки
+            const headers = Array.from(tableElement.querySelectorAll('th')).map(th => th.textContent.trim());
+            
+            // Добавляем строку заголовков
+            markdown += '| ' + headers.join(' | ') + ' |\n';
+            
+            // Добавляем разделительную строку
+            markdown += '| ' + headers.map(() => '---').join(' | ') + ' |\n';
+            
+            // Добавляем строки данных
+            const rows = tableElement.querySelectorAll('tr');
+            rows.forEach(row => {
+                // Пропускаем строку заголовков
+                if (row.querySelector('th')) return;
+                
+                const cells = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
+                markdown += '| ' + cells.join(' | ') + ' |\n';
+            });
+            
+            return markdown;
         }
 
         // Добавляем кнопку очистки истории в инструменты
@@ -1826,6 +1949,40 @@
                 
                 // Добавляем класс для стилизации
                 pre.classList.add('has-header');
+            });
+        }
+
+        function copyCodeBlock(button) {
+            // Находим родительский pre элемент
+            const preElement = button.closest('pre');
+            if (!preElement) {
+                console.error('Не найден родительский элемент pre');
+                return;
+            }
+            
+            // Находим элемент code внутри pre
+            const codeElement = preElement.querySelector('code');
+            if (!codeElement) {
+                console.error('Не найден элемент code внутри pre');
+                return;
+            }
+            
+            // Получаем текст кода
+            const codeText = codeElement.textContent;
+            
+            // Копируем в буфер обмена
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> ' + t('copied');
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Ошибка при копировании:', err);
+                button.innerHTML = '<i class="fas fa-times"></i> ' + t('error');
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-copy"></i> ' + t('copy');
+                }, 2000);
             });
         }
     </script>
