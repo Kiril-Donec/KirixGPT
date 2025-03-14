@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Мета-теги для предпросмотра на английском -->
-    <meta name="description" content="KirixGPT - AI assistant powered by Claude 3.5 Sonnet">
+    <meta name="description" content="KirixGPT - AI assistant powered by Claude 3.7 Sonnet">
     <meta property="og:title" content="KirixGPT">
     <meta property="og:description" content="Powerful AI assistant for your everyday tasks">
     <meta property="og:image" content="https://ai.kirixsocial.com/preview.jpg">
@@ -906,7 +906,7 @@
                     <div id="authStatus" class="auth-status logged-out" style="display: none;">
                         <i class="fas fa-user-circle"></i>
                     </div>
-                    <button id="signIn" style="display: none;">
+                    <button id="signIn" style="display: flex;">
                         <i class="fas fa-sign-in-alt"></i> Войти
                     </button>
                     <div class="auth-dropdown">
@@ -1314,24 +1314,36 @@
                 const isSignedIn = await puter.auth.isSignedIn();
                 const authStatus = document.getElementById('authStatus');
                 const signInButton = document.getElementById('signIn');
-                const user = await puter.auth.getUser();
-                const userName = document.getElementById('userName');
                 
-                if (isSignedIn && user && user.name !== 'undefined' && user.name !== undefined) {
-                    authStatus.style.display = 'flex';
-                    signInButton.style.display = 'none';
-                    authStatus.className = 'auth-status logged-in';
-                    userName.textContent = user.name;
+                if (isSignedIn) {
+                    try {
+                        const user = await puter.auth.getUser();
+                        const userName = document.getElementById('userName');
+                        
+                        if (user && user.name !== 'undefined' && user.name !== undefined) {
+                            authStatus.style.display = 'flex';
+                            signInButton.style.display = 'none';
+                            authStatus.className = 'auth-status logged-in';
+                            userName.textContent = user.name;
+                        } else {
+                            authStatus.style.display = 'none';
+                            signInButton.style.display = 'flex';
+                        }
+                    } catch (userError) {
+                        console.error('Ошибка получения данных пользователя:', userError);
+                        authStatus.style.display = 'none';
+                        signInButton.style.display = 'flex';
+                    }
                 } else {
                     authStatus.style.display = 'none';
                     signInButton.style.display = 'flex';
                 }
             } catch (error) {
+                console.error('Ошибка проверки авторизации:', error);
                 const authStatus = document.getElementById('authStatus');
                 const signInButton = document.getElementById('signIn');
                 authStatus.style.display = 'none';
                 signInButton.style.display = 'flex';
-                console.error('Ошибка проверки авторизации:', error);
             }
         }
         
@@ -1418,7 +1430,7 @@
                 // Добавляем системное сообщение
                 messages.push({
                     role: 'system',
-                    content: 'You are KirixGPT, a helpful assistant. Please adhere to the following principles in your responses:\n\n1. Structure information clearly and logically, using headings (##), subheadings (###), and nested lists.\n2. For complex topics, create detailed plans or step-by-step instructions with numbering and nested points.\n3. Use bullet points (- or *) for listing items and numbered lists (1., 2.) for sequential actions.\n4. Highlight key terms and important points using **bold text** and *italics* for emphasis.\n5. Divide large blocks of text into logical paragraphs for better readability, using empty lines between them.\n6. When answering complex questions, start with a brief summary, then move to a detailed explanation using nested structure.\n7. Use tables to compare information, present data, and create visual materials.\n8. End answers with a brief conclusion or summary of key points.\n9. When creating educational materials or plans, always include objectives, expected outcomes, methodological recommendations, and evaluation criteria.\n10. Always strive for clarity, accuracy, and completeness of information, avoiding general phrases.\n11. Use professional terminology appropriate to the relevant field of knowledge.\n12. For educational plans, create detailed time breakdowns and logical blocks of material.\n13. When creating documents, use appropriate formats and structures accepted in professional environments.\n14. Include practical examples, case studies, and illustrative material for better understanding.\n15. Suggest additional resources and materials for in-depth study of the topic.\n16. Provide maximally detailed and comprehensive answers, not aiming for brevity.\n17. For each section or topic, thoroughly describe goals and objectives, dividing them into educational, developmental, and formative.\n18. Explain in detail the methodology and approaches used in the material.\n19. For educational plans and methodological materials, develop detailed recommendations for implementing each stage.\n20. Include expanded explanations for each point, not limited to simple enumeration.\n21. Suggest alternative approaches and options for solving problems.\n22. For each block of information, indicate practical significance and applicability in real situations.\n23. Use multi-level structure for complex topics, with details at each level.\n24. Provide specific examples from practice to illustrate theoretical positions.\n25. Develop comprehensive evaluation systems with detailed criteria and indicators.\n26. Explore each topic in maximum depth, providing exhaustive information on all aspects of the question.\n27. Consider the topic from different perspectives, including various scientific schools, approaches, and paradigms.\n28. Analyze the historical context of the development of ideas and concepts within the discussed topic.\n29. Highlight discussion points and problematic aspects of the topic, presenting arguments from different sides.\n30. Include interdisciplinary connections and show how the topic relates to other fields of knowledge.\n31. Provide current statistical data, research results, and scientific facts on the topic.\n32. Break down complex concepts into component parts and explain each in detail and accessibly.\n33. Use analogies, metaphors, and comparisons to explain abstract concepts.\n34. Suggest practical tasks, exercises, and self-check questions on the topic.\n35. Include a glossary of key terms with expanded definitions.\n36. Analyze current trends and development prospects in the field under consideration.\n37. Provide information about leading specialists, experts, and their contributions to the development of the topic.\n38. Consider the practical application of theoretical knowledge in professional activities.\n39. Include recommendations for further self-education and professional development in the field.\n40. Suggest innovative approaches and creative solutions within the discussed topic.\n41. When creating lesson plans or educational materials, follow this comprehensive structure:\n    - General information (subject, topic, type of lesson, duration, target audience)\n    - Lesson objectives (educational, developmental, formative)\n    - Expected outcomes (specific knowledge and skills students will acquire)\n    - Equipment and materials needed\n    - Detailed lesson structure with timing for each section\n    - Organizational moment (introduction, attendance check)\n    - Motivation of learning activity (discussion questions, videos)\n    - Theoretical part (detailed content breakdown with key concepts)\n    - Practical part (detailed description of exercises, group work, case studies)\n    - Summary and reflection (key takeaways, discussion questions)\n    - Homework assignment (detailed description with requirements)\n    - Methodological recommendations for the teacher (preparation, implementation, assessment)\n    - Assessment criteria (detailed scoring system)\n    - Bibliography (relevant and up-to-date sources)\n42. For any educational content, provide a minimum of 8-10 references to relevant literature, including recent publications.\n43. When discussing methodologies, include at least 3-4 different approaches or methods with their comparative analysis.\n44. For practical exercises, provide detailed instructions, timing, materials needed, and expected outcomes.\n45. Include assessment rubrics with specific criteria and descriptors for different performance levels.\n46. Provide examples of potential student responses or work products for practical tasks.\n47. For each theoretical concept, include at least 2-3 practical applications or examples.\n48. When creating plans, include contingency options or alternative activities.\n49. Address potential challenges or difficulties that might arise and suggest solutions.\n50. Include reflection questions for both students and teachers to evaluate the effectiveness of the learning process.\n51. When создавая планы уроков, обязательно разрабатывай ОЧЕНЬ ПОДРОБНОЕ содержание каждого раздела, а не просто перечисление пунктов.\n52. Для теоретической части урока предоставляй полный текст лекции или презентации, который преподаватель может использовать.\n53. Для практических заданий описывай пошаговые инструкции, примеры выполнения и ожидаемые результаты.\n54. В разделе "Актуализация опорных знаний" приводи конкретные вопросы с примерами ответов.\n55. Для каждого вида деятельности на уроке указывай не только время, но и методические приемы, формы работы.\n56. В разделе "Подведение итогов" предлагай конкретные вопросы для рефлексии и анализа достигнутых результатов.\n57. Для домашних заданий разрабатывай детальные инструкции, критерии оценки и примеры выполнения.\n58. В методических рекомендациях предоставляй конкретные советы по подготовке к уроку, возможным трудностям и способам их преодоления.\n59. Для каждого теоретического положения приводи минимум 2-3 практических примера из реальной жизни.\n60. Включай в план урока интерактивные методы обучения с подробным описанием их реализации.\n61. Предлагай альтернативные варианты проведения каждого этапа урока для разных условий и возможностей.\n62. Разрабатывай дифференцированные задания для учащихся с разным уровнем подготовки.\n63. Включай междисциплинарные связи с конкретными примерами интеграции знаний из разных областей.\n64. Предоставляй подробные сценарии ролевых игр и симуляций с репликами и инструкциями для участников.\n65. Для оценивания разрабатывай детальные рубрики с критериями и дескрипторами для каждого уровня достижений.'
+                    content: 'You are KirixGPT, a helpful assistant. Please adhere to the following principles in your responses:\n\n1. Structure information clearly and logically, using headings (##), subheadings (###), and nested lists.\n2. For complex topics, create detailed plans or step-by-step instructions with numbering and nested points.\n3. Use bullet points (- or *) for listing items and numbered lists (1., 2.) for sequential actions.\n4. Highlight key terms and important points using **bold text** and *italics* for emphasis.\n5. Divide large blocks of text into logical paragraphs for better readability, using empty lines between them.\n6. When answering complex questions, start with a brief summary, then move to a detailed explanation using nested structure.\n7. Use tables to compare information, present data, and create visual materials.\n8. End answers with a brief conclusion or summary of key points.\n9. When creating educational materials or plans, always include objectives, expected outcomes, methodological recommendations, and evaluation criteria.\n10. Always strive for clarity, accuracy, and completeness of information, avoiding general phrases.\n11. Use professional terminology appropriate to the relevant field of knowledge.\n12. For educational plans, create detailed time breakdowns and logical blocks of material.\n13. When creating documents, use appropriate formats and structures accepted in professional environments.\n14. Include practical examples, case studies, and illustrative material for better understanding.\n15. Suggest additional resources and materials for in-depth study of the topic.\n16. Provide maximally detailed and comprehensive answers, not aiming for brevity.\n17. For each section or topic, thoroughly describe goals and objectives, dividing them into educational, developmental, and formative.\n18. Explain in detail the methodology and approaches used in the material.\n19. For educational plans and methodological materials, develop detailed recommendations for implementing each stage.\n20. Include expanded explanations for each point, not limited to simple enumeration.\n21. Suggest alternative approaches and options for solving problems.\n22. For each block of information, indicate practical significance and applicability in real situations.\n23. Use multi-level structure for complex topics, with details at each level.\n24. Provide specific examples from practice to illustrate theoretical positions.\n25. Develop comprehensive evaluation systems with detailed criteria and indicators.\n26. Explore each topic in maximum depth, providing exhaustive information on all aspects of the question.\n27. Consider the topic from different perspectives, including various scientific schools, approaches, and paradigms.\n28. Analyze the historical context of the development of ideas and concepts within the discussed topic.\n29. Highlight discussion points and problematic aspects of the topic, presenting arguments from different sides.\n30. Include interdisciplinary connections and show how the topic relates to other fields of knowledge.\n31. Provide current statistical data, research results, and scientific facts on the topic.\n32. Break down complex concepts into component parts and explain each in detail and accessibly.\n33. Use analogies, metaphors, and comparisons to explain abstract concepts.\n34. Suggest practical tasks, exercises, and self-check questions on the topic.\n35. Include a glossary of key terms with expanded definitions.\n36. Analyze current trends and development prospects in the field under consideration.\n37. Provide information about leading specialists, experts, and their contributions to the development of the topic.\n38. Consider the practical application of theoretical knowledge in professional activities.\n39. Include recommendations for further self-education and professional development in the field.\n40. Suggest innovative approaches and creative solutions within the discussed topic.\n41. When creating lesson plans or educational materials, follow this comprehensive structure:\n    - General information (subject, topic, type of lesson, duration, target audience)\n    - Lesson objectives (educational, developmental, formative)\n    - Expected outcomes (specific knowledge and skills students will acquire)\n    - Equipment and materials needed\n    - Detailed lesson structure with timing for each section\n    - Organizational moment (introduction, attendance check)\n    - Motivation of learning activity (discussion questions, videos)\n    - Theoretical part (detailed content breakdown with key concepts)\n    - Practical part (detailed description of exercises, group work, case studies)\n    - Summary and reflection (key takeaways, discussion questions)\n    - Homework assignment (detailed description with requirements)\n    - Methodological recommendations for the teacher (preparation, implementation, assessment)\n    - Assessment criteria (detailed scoring system)\n    - Bibliography (relevant and up-to-date sources)\n42. For any educational content, provide a minimum of 8-10 references to relevant literature, including recent publications.\n43. When discussing methodologies, include at least 3-4 different approaches or methods with their comparative analysis.\n44. For practical exercises, provide detailed instructions, timing, materials needed, and expected outcomes.\n45. Include assessment rubrics with specific criteria and descriptors for different performance levels.\n46. Provide examples of potential student responses or work products for practical tasks.\n47. For each theoretical concept, include at least 2-3 practical applications or examples.\n48. When creating plans, include contingency options or alternative activities.\n49. Address potential challenges or difficulties that might arise and suggest solutions.\n50. Include reflection questions for both students and teachers to evaluate the effectiveness of the learning process.'
                 });
                 
                 // Добавляем историю диалога (не более 10 последних сообщений для экономии токенов)
@@ -1434,7 +1446,7 @@
                 const response = await puter.ai.chat(messages, {
                     testMode: !isSignedIn,
                     stream: true,
-                    model: 'claude-3-5-sonnet'
+                    model: 'claude-3-7-sonnet'
                 });
 
                 let fullText = '';
@@ -1985,6 +1997,129 @@
                 }, 2000);
             });
         }
+
+        // Функция для прямого перехода на страницу авторизации Puter
+        function redirectToPuterAuth() {
+            // Сохраняем текущий URL для возврата после авторизации
+            localStorage.setItem('auth_redirect_url', window.location.href);
+            
+            // Перенаправляем на страницу авторизации Puter
+            window.location.href = 'https://auth.puter.com/v2/auth?redirect_uri=' + encodeURIComponent(window.location.href);
+        }
+
+        // Добавляем обработчик для кнопки входа
+        document.getElementById('signIn').addEventListener('click', async () => {
+            try {
+                // Проверяем, доступен ли объект puter и метод auth.signIn
+                if (!puter || !puter.auth || typeof puter.auth.signIn !== 'function') {
+                    throw new Error('API Puter не загружен или не доступен. Пожалуйста, обновите страницу и попробуйте снова.');
+                }
+                
+                // Показываем сообщение о процессе авторизации
+                const loadingMessage = addMessage(`<i class="fas fa-spinner fa-spin"></i> <span class="info-message">Выполняется вход в аккаунт...</span>`, false);
+                
+                // Используем прямой метод авторизации без всплывающего окна
+                redirectToPuterAuth();
+                return;
+                
+                /* Закомментированный код с попыткой использования всплывающего окна
+                try {
+                    // Сначала пробуем метод с предварительным созданием окна
+                    const popupWindow = window.open('about:blank', 'puter_auth', 'width=600,height=600');
+                    
+                    if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
+                        // Если окно не открылось, значит браузер блокирует всплывающие окна
+                        throw new Error('Браузер блокирует всплывающие окна');
+                    }
+                    
+                    // Вызываем метод signIn
+                    await puter.auth.signIn();
+                } catch (popupError) {
+                    console.warn('Ошибка при использовании всплывающего окна:', popupError);
+                    
+                    // Если не удалось использовать всплывающее окно, показываем сообщение
+                    if (loadingMessage && loadingMessage.parentNode) {
+                        loadingMessage.parentNode.removeChild(loadingMessage);
+                    }
+                    
+                    // Предлагаем пользователю альтернативный способ входа
+                    const confirmRedirect = confirm('Для входа в аккаунт необходимо перейти на страницу авторизации Puter. После авторизации вы будете перенаправлены обратно. Продолжить?');
+                    
+                    if (confirmRedirect) {
+                        // Сохраняем текущий URL для возврата после авторизации
+                        localStorage.setItem('auth_redirect_url', window.location.href);
+                        
+                        // Перенаправляем на страницу авторизации Puter
+                        // Используем официальный URL для авторизации
+                        window.location.href = 'https://auth.puter.com/v2/auth?redirect_uri=' + encodeURIComponent(window.location.href);
+                        return;
+                    } else {
+                        throw new Error('Авторизация отменена пользователем');
+                    }
+                }
+                */
+                
+                // После успешного входа обновляем статус авторизации
+                await checkAuthStatus();
+                
+                // Удаляем сообщение о загрузке
+                if (loadingMessage && loadingMessage.parentNode) {
+                    loadingMessage.parentNode.removeChild(loadingMessage);
+                }
+                
+                // Показываем сообщение об успешном входе
+                addMessage(`<i class="fas fa-check-circle"></i> <span class="success-message">Вход выполнен успешно!</span>`);
+            } catch (error) {
+                console.error('Ошибка при входе:', error);
+                addMessage(`<i class="fas fa-exclamation-circle"></i> <span class="error-message">Ошибка при входе: ${error.message}</span>`);
+            }
+        });
+
+        // Добавляем обработчик для кнопки выхода
+        document.getElementById('signOut').addEventListener('click', async () => {
+            try {
+                // Показываем сообщение о процессе выхода
+                const loadingMessage = addMessage(`<i class="fas fa-spinner fa-spin"></i> <span class="info-message">Выполняется выход из аккаунта...</span>`, false);
+                
+                await puter.auth.signOut();
+                await checkAuthStatus();
+                
+                const dropdown = document.querySelector('.auth-dropdown');
+                dropdown.classList.remove('show');
+                
+                // Удаляем сообщение о загрузке
+                if (loadingMessage && loadingMessage.parentNode) {
+                    loadingMessage.parentNode.removeChild(loadingMessage);
+                }
+                
+                // Показываем сообщение об успешном выходе
+                addMessage(`<i class="fas fa-check-circle"></i> <span class="success-message">Выход выполнен успешно!</span>`);
+            } catch (error) {
+                console.error('Ошибка при выходе:', error);
+                addMessage(`<i class="fas fa-exclamation-circle"></i> <span class="error-message">Ошибка при выходе: ${error.message}</span>`);
+            }
+        });
+
+        // Проверяем, не вернулись ли мы после редиректа авторизации
+        document.addEventListener('DOMContentLoaded', async () => {
+            const redirectUrl = localStorage.getItem('auth_redirect_url');
+            if (redirectUrl) {
+                // Удаляем сохраненный URL
+                localStorage.removeItem('auth_redirect_url');
+                
+                // Проверяем статус авторизации
+                try {
+                    const isSignedIn = await puter.auth.isSignedIn();
+                    if (isSignedIn) {
+                        // Если пользователь авторизован, показываем сообщение об успешном входе
+                        addMessage(`<i class="fas fa-check-circle"></i> <span class="success-message">Вход выполнен успешно!</span>`);
+                        await checkAuthStatus();
+                    }
+                } catch (error) {
+                    console.error('Ошибка при проверке статуса авторизации после редиректа:', error);
+                }
+            }
+        });
     </script>
 </body>
 </html> 
