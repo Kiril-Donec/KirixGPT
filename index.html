@@ -209,6 +209,7 @@
                 var(--border-color),
                 transparent
             );
+            opacity: 0.5;
         }
 
         .header-title {
@@ -333,11 +334,11 @@
 
         .container {
             max-width: 1000px;
-            margin: 70px auto 0;
+            margin: 60px auto 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 90px);
+            height: calc(100vh - 80px);
         }
 
         .chat-container {
@@ -407,13 +408,66 @@
             color: var(--secondary-text);
         }
 
-        .tools {
+        #attachFile {
+            background-color: transparent;
+            border: none;
+            color: var(--secondary-text);
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
             display: flex;
-            gap: 8px;
-            margin-right: 4px;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            margin-right: auto;
         }
 
-        .tool-button {
+        #attachFile:hover {
+            background-color: var(--tool-button-bg);
+            color: var(--text-color);
+        }
+
+        #sendMessage {
+            background-color: var(--button-bg);
+            border: none;
+            padding: 8px;
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        #sendMessage:not(:disabled):hover {
+            background-color: var(--button-hover);
+            transform: scale(1.05);
+        }
+
+        #sendMessage:disabled {
+            background-color: var(--button-bg);
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #sendMessage i {
+            font-size: 16px;
+        }
+
+        .tools {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 1001;
+        }
+
+        #clearChat {
             background-color: transparent;
             border: none;
             color: var(--secondary-text);
@@ -428,35 +482,9 @@
             height: 36px;
         }
 
-        .tool-button:hover {
+        #clearChat:hover {
             background-color: var(--tool-button-bg);
             color: var(--text-color);
-            transform: translateY(0);
-            box-shadow: none;
-        }
-
-        #sendMessage {
-            background-color: transparent;
-            border: none;
-            padding: 8px;
-            color: var(--secondary-text);
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #sendMessage:hover {
-            background-color: var(--tool-button-bg);
-            color: var(--text-color);
-            transform: translateY(0);
-            box-shadow: none;
-        }
-
-        #sendMessage i {
-            font-size: 16px;
         }
 
         .message {
@@ -513,6 +541,8 @@
             overflow-x: auto;
             margin: 8px 0;
             position: relative;
+            padding-top: 40px;
+            border: 1px solid var(--border-color);
         }
 
         .message-content pre code {
@@ -782,31 +812,29 @@
         }
 
         .code-copy-button {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background-color: var(--tool-button-bg);
+            position: relative;
+            background-color: var(--button-bg);
             border: none;
-            color: var(--secondary-text);
-            padding: 4px 8px;
+            color: white;
+            padding: 4px 12px;
             border-radius: 4px;
             font-size: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 4px;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            z-index: 10;
-        }
-
-        .message-content pre:hover .code-copy-button {
-            opacity: 1;
+            gap: 6px;
+            transition: all 0.2s ease;
+            opacity: 0.8;
         }
 
         .code-copy-button:hover {
-            background-color: var(--button-bg);
-            color: var(--bg-color);
+            opacity: 1;
+            transform: translateY(-1px);
+            background-color: var(--button-hover);
+        }
+
+        .code-copy-button:active {
+            transform: translateY(1px);
         }
 
         .code-copy-button i {
@@ -814,15 +842,31 @@
         }
 
         .code-language-label {
-            position: absolute;
-            top: 8px;
-            left: 8px;
+            position: relative;
             font-size: 12px;
-            color: var(--secondary-text);
-            background-color: var(--tool-button-bg);
-            padding: 2px 6px;
+            color: white;
+            background-color: var(--button-bg);
+            padding: 3px 8px;
             border-radius: 4px;
             opacity: 0.8;
+            z-index: 100;
+            font-weight: 500;
+        }
+
+        .code-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 36px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 12px;
+            z-index: 50;
         }
     </style>
 </head>
@@ -834,6 +878,10 @@
         <div class="header">
             <div class="header-title">KirixGPT</div>
             <div class="header-controls">
+                <div class="language-selector">
+                    <button class="lang-button" onclick="changeLanguage('uk')">UK</button>
+                    <button class="lang-button" onclick="changeLanguage('en')">EN</button>
+                </div>
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -869,13 +917,11 @@
             <div class="input-container">
                 <div class="input-wrapper">
                     <div class="input-group">
+                        <button class="tool-button" id="attachFile" title="Прикрепить файл">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
                         <input type="text" id="userInput" placeholder="Спросите что-нибудь...">
-                        <div class="tools">
-                            <button class="tool-button" id="attachFile" title="Прикрепить файл">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                        <button id="sendMessage">
+                        <button id="sendMessage" disabled>
                             <i class="fas fa-arrow-up"></i>
                         </button>
                     </div>
@@ -895,6 +941,204 @@
         // Массив для хранения истории сообщений
         let chatHistory = [];
         
+        // Добавляем переводы для всех поддерживаемых языков
+        const translations = {
+            ru: {
+                help: 'Чем я могу помочь?',
+                placeholder: 'Спросите что-нибудь...',
+                typing: 'Печатает',
+                copy: 'Копировать',
+                copied: 'Скопировано',
+                clearHistory: 'Очистить историю',
+                clearConfirm: 'Вы уверены, что хотите очистить историю чата?',
+                you: 'Вы',
+                signIn: 'Войти',
+                signOut: 'Выйти',
+                attachFile: 'Прикрепить файл',
+                imageUploaded: 'Изображение загружено:',
+                imagePasted: 'Изображение вставлено:',
+                imageGeneration: 'Генерация изображения:',
+                imageCreated: 'Изображение создано:',
+                authRequired: 'Для загрузки файлов необходимо авторизоваться',
+                error: 'Ошибка:',
+                code: 'текст'
+            },
+            uk: {
+                help: 'Чим я можу допомогти?',
+                placeholder: 'Запитайте що-небудь...',
+                typing: 'Друкує',
+                copy: 'Копіювати',
+                copied: 'Скопійовано',
+                clearHistory: 'Очистити історію',
+                clearConfirm: 'Ви впевнені, що хочете очистити історію чату?',
+                you: 'Ви',
+                signIn: 'Увійти',
+                signOut: 'Вийти',
+                attachFile: 'Прикріпити файл',
+                imageUploaded: 'Зображення завантажено:',
+                imagePasted: 'Зображення вставлено:',
+                imageGeneration: 'Генерація зображення:',
+                imageCreated: 'Зображення створено:',
+                authRequired: 'Для завантаження файлів необхідно авторизуватися',
+                error: 'Помилка:',
+                code: 'текст'
+            },
+            en: {
+                help: 'How can I help you?',
+                placeholder: 'Ask something...',
+                typing: 'Typing',
+                copy: 'Copy',
+                copied: 'Copied',
+                clearHistory: 'Clear History',
+                clearConfirm: 'Are you sure you want to clear chat history?',
+                you: 'You',
+                signIn: 'Sign In',
+                signOut: 'Sign Out',
+                attachFile: 'Attach File',
+                imageUploaded: 'Image uploaded:',
+                imagePasted: 'Image pasted:',
+                imageGeneration: 'Image generation:',
+                imageCreated: 'Image created:',
+                authRequired: 'Authorization required to upload files',
+                error: 'Error:',
+                code: 'text'
+            }
+        };
+
+        // Функция для определения языка браузера
+        function getBrowserLanguage() {
+            const lang = navigator.language.toLowerCase().split('-')[0];
+            return translations[lang] ? lang : 'en';
+        }
+
+        // Проверяем URL на наличие параметра языка
+        function checkUrlForLanguage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            
+            if (langParam && translations[langParam]) {
+                return langParam;
+            }
+            return null;
+        }
+
+        // Текущий язык интерфейса
+        let currentLanguage = checkUrlForLanguage() || localStorage.getItem('language') || getBrowserLanguage();
+        
+        // Если текущий язык русский, но мы не находимся на странице с параметром ?lang=ru, перенаправляем
+        if (currentLanguage === 'ru' && !window.location.search.includes('lang=ru')) {
+            // Сохраняем выбор в localStorage, но не перенаправляем, если это первая загрузка
+            if (localStorage.getItem('language') === 'ru') {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('lang', 'ru');
+                window.location.search = urlParams.toString();
+            } else {
+                // Просто устанавливаем язык по умолчанию, если это первая загрузка
+                currentLanguage = 'en';
+            }
+        }
+
+        // Функция для изменения языка интерфейса
+        function changeLanguage(lang) {
+            if (!translations[lang]) return;
+            
+            // Если выбран русский язык, перенаправляем на страницу с параметром ?lang=ru
+            if (lang === 'ru') {
+                localStorage.setItem('language', lang);
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('lang', 'ru');
+                window.location.search = urlParams.toString();
+                return;
+            }
+            
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            
+            // Если мы были на странице с параметром ?lang=ru, но выбрали другой язык, убираем параметр из URL
+            if (window.location.search.includes('lang=ru') && lang !== 'ru') {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.delete('lang');
+                const newSearch = urlParams.toString();
+                const newUrl = window.location.pathname + (newSearch ? '?' + newSearch : '');
+                window.history.pushState({}, '', newUrl);
+            }
+            
+            updateInterface();
+        }
+
+        // Функция для получения перевода
+        function t(key) {
+            return translations[currentLanguage][key] || translations['en'][key];
+        }
+
+        // Добавляем стили для языкового переключателя
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = `
+            .language-selector {
+                display: flex;
+                gap: 8px;
+                margin-right: 16px;
+            }
+            .lang-button {
+                background: none;
+                border: none;
+                color: var(--secondary-text);
+                padding: 4px 8px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .lang-button:hover {
+                background-color: var(--tool-button-bg);
+                color: var(--text-color);
+            }
+            .lang-button.active {
+                background-color: var(--button-bg);
+                color: white;
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // Функция обновления интерфейса при смене языка
+        function updateInterface() {
+            // Обновляем все языковые кнопки
+            document.querySelectorAll('.lang-button').forEach(button => {
+                const lang = button.textContent.toLowerCase();
+                button.classList.toggle('active', lang === currentLanguage);
+            });
+
+            // Обновляем плейсхолдер в поле ввода
+            document.getElementById('userInput').placeholder = t('placeholder');
+
+            // Обновляем приветственное сообщение
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            if (welcomeMessage) {
+                welcomeMessage.querySelector('.message-content div').textContent = t('help');
+            }
+
+            // Обновляем кнопку входа
+            document.getElementById('signIn').innerHTML = `<i class="fas fa-sign-in-alt"></i> ${t('signIn')}`;
+
+            // Обновляем кнопку выхода
+            document.getElementById('signOut').innerHTML = `<i class="fas fa-sign-out-alt"></i> ${t('signOut')}`;
+
+            // Обновляем заголовок кнопки прикрепления файла
+            document.getElementById('attachFile').title = t('attachFile');
+
+            // Обновляем все кнопки копирования
+            document.querySelectorAll('.copy-button').forEach(button => {
+                button.innerHTML = `<i class="fas fa-copy"></i> ${t('copy')}`;
+            });
+
+            // Обновляем все кнопки копирования кода
+            document.querySelectorAll('.code-copy-button').forEach(button => {
+                button.innerHTML = `<i class="fas fa-copy"></i> ${t('copy')}`;
+            });
+        }
+
+        // Вызываем функцию обновления интерфейса при загрузке страницы
+        document.addEventListener('DOMContentLoaded', updateInterface);
+
         // Загружаем историю чата из localStorage при загрузке страницы
         function loadChatHistory() {
             const savedHistory = localStorage.getItem('chatHistory');
@@ -985,7 +1229,7 @@
                 '<i class="fas fa-user"></i>' : 
                 '<i class="fas fa-robot"></i>';
             
-            const header = `<div class="message-header">${icon} ${isUser ? 'Вы' : 'KirixGPT'}</div>`;
+            const header = `<div class="message-header">${icon} ${isUser ? t('you') : 'KirixGPT'}</div>`;
             
             // Настраиваем marked для использования highlight.js и добавления кнопки копирования
             marked.setOptions({
@@ -995,13 +1239,7 @@
                         hljs.highlight(code, { language }).value : 
                         hljs.highlightAuto(code).value;
                         
-                    // Добавляем кнопку копирования и метку языка к блоку кода
-                    return `<div class="code-header">
-                        <span class="code-language-label">${language || 'текст'}</span>
-                        <button class="code-copy-button" onclick="copyCodeBlock(this)">
-                            <i class="fas fa-copy"></i> Копировать
-                        </button>
-                    </div>${highlighted}`;
+                    return highlighted;
                 },
                 breaks: true
             });
@@ -1019,21 +1257,25 @@
             const contentDiv = `<div class="message-content">
                 ${processedContent}
                 <button class="copy-button" onclick="copyMessageContent(this)">
-                    <i class="fas fa-copy"></i> Копировать
+                    <i class="fas fa-copy"></i> ${t('copy')}
                 </button>
             </div>`;
             
             messageDiv.innerHTML = header + contentDiv;
             chatContainer.appendChild(messageDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
             
-            // Активируем подсветку синтаксиса для всех блоков кода
+            // Обрабатываем блоки кода после добавления в DOM
             if (!isUser) {
+                processCodeBlocks(messageDiv);
+                
+                // Активируем подсветку синтаксиса для всех блоков кода
                 const codeBlocks = messageDiv.querySelectorAll('pre code');
                 codeBlocks.forEach(block => {
                     hljs.highlightElement(block);
                 });
             }
+            
+            chatContainer.scrollTop = chatContainer.scrollHeight;
             
             // Сохраняем сообщение в историю, если нужно
             if (saveToHistory) {
@@ -1102,7 +1344,7 @@
                 </div>
                 <div class="message-content loading">
                     <i class="fas fa-pen"></i>
-                    Печатает
+                    ${t('typing')}
                     <div class="typing-indicator">
                         <div class="typing-dot"></div>
                         <div class="typing-dot"></div>
@@ -1159,7 +1401,7 @@
                 // Добавляем системное сообщение
                 messages.push({
                     role: 'system',
-                    content: 'Ты полезный ассистент KirixGPT. Отвечай на русском языке, кратко и по существу.'
+                    content: 'Ты полезный ассистент KirixGPT.'
                 });
                 
                 // Добавляем историю диалога (не более 10 последних сообщений для экономии токенов)
@@ -1174,7 +1416,8 @@
                 
                 const response = await puter.ai.chat(messages, {
                     testMode: !isSignedIn,
-                    stream: true
+                    stream: true,
+                    model: 'claude-3-5-sonnet'
                 });
 
                 let fullText = '';
@@ -1194,6 +1437,9 @@
                             try {
                                 // Преобразуем весь текст в Markdown
                                 formattedContainer.innerHTML = marked.parse(fullText);
+                                
+                                // Обрабатываем блоки кода
+                                processCodeBlocks(formattedContainer);
                                 
                                 // Подсвечиваем код
                                 const codeBlocks = formattedContainer.querySelectorAll('pre code');
@@ -1223,6 +1469,9 @@
                     
                     // Преобразуем весь текст в Markdown
                     formattedContainer.innerHTML = marked.parse(fullText);
+                    
+                    // Обрабатываем блоки кода
+                    processCodeBlocks(formattedContainer);
                     
                     // Подсвечиваем код
                     const codeBlocks = formattedContainer.querySelectorAll('pre code');
@@ -1255,12 +1504,19 @@
             }
         }
         
+        document.getElementById('userInput').addEventListener('input', function() {
+            const sendButton = document.getElementById('sendMessage');
+            sendButton.disabled = !this.value.trim();
+        });
+
         document.getElementById('sendMessage').addEventListener('click', async () => {
             const input = document.getElementById('userInput');
+            const sendButton = document.getElementById('sendMessage');
             const prompt = input.value.trim();
             if (!prompt) return;
             
             input.value = '';
+            sendButton.disabled = true;
             await streamResponse(prompt);
         });
 
@@ -1270,12 +1526,20 @@
             }
         });
         
+        // Добавляем кнопку генерации изображений в панель инструментов
+        document.querySelector('.tools').insertAdjacentHTML('afterbegin', `
+            <button class="tool-button" id="generateImage" title="Сгенерировать изображение">
+                <i class="fas fa-image"></i>
+            </button>
+        `);
+
+        // Теперь добавляем обработчик события после создания элемента
         document.getElementById('generateImage').addEventListener('click', async () => {
             const input = document.getElementById('userInput');
             const prompt = input.value.trim();
             if (!prompt) return;
             
-            addMessage(`<i class="fas fa-image"></i> Генерация изображения: ${prompt}`, true);
+            addMessage(`<i class="fas fa-image"></i> ${t('imageGeneration')} ${prompt}`, true);
             input.value = '';
             
             const loadingDiv = showLoading();
@@ -1292,7 +1556,7 @@
                         <i class="fas fa-robot"></i> KirixGPT
                     </div>
                     <div class="message-content">
-                        <i class="fas fa-check-circle"></i> Изображение создано:
+                        <i class="fas fa-check-circle"></i> ${t('imageCreated')}
                     </div>
                 `;
                 messageDiv.querySelector('.message-content').appendChild(image);
@@ -1300,7 +1564,7 @@
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             } catch (error) {
                 loadingDiv.remove();
-                addMessage(`<i class="fas fa-exclamation-circle"></i> Ошибка: ${error.message}`);
+                addMessage(`<i class="fas fa-exclamation-circle"></i> ${t('error')} ${error.message}`);
             }
         });
         
@@ -1373,7 +1637,7 @@
                         img.style.marginTop = '12px';
                         
                         addMessage(`<div class="pasted-image">
-                            <i class="fas fa-image"></i> Изображение вставлено:
+                            <i class="fas fa-image"></i> ${t('imagePasted')}
                             ${img.outerHTML}
                         </div>`, true);
                     };
@@ -1412,7 +1676,7 @@
                             img.style.marginTop = '12px';
                             
                             addMessage(`<div class="uploaded-image">
-                                <i class="fas fa-image"></i> Изображение загружено:
+                                <i class="fas fa-image"></i> ${t('imageUploaded')}
                                 ${img.outerHTML}
                             </div>`, true);
                         };
@@ -1454,13 +1718,19 @@
         function copyCodeBlock(button) {
             // Находим родительский pre элемент
             const preElement = button.closest('pre');
-            if (!preElement) return;
+            if (!preElement) {
+                console.error('Не найден родительский элемент pre');
+                return;
+            }
             
             // Находим элемент code внутри pre
             const codeElement = preElement.querySelector('code');
-            if (!codeElement) return;
+            if (!codeElement) {
+                console.error('Не найден элемент code внутри pre');
+                return;
+            }
             
-            // Получаем текст кода без кнопки копирования и метки языка
+            // Получаем текст кода
             const codeText = codeElement.textContent;
             
             // Копируем в буфер обмена
@@ -1470,19 +1740,25 @@
                 setTimeout(() => {
                     button.innerHTML = originalText;
                 }, 2000);
+            }).catch(err => {
+                console.error('Ошибка при копировании:', err);
+                button.innerHTML = '<i class="fas fa-times"></i> Ошибка';
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-copy"></i> Копировать';
+                }, 2000);
             });
         }
 
         // Добавляем кнопку очистки истории в инструменты
         document.querySelector('.tools').insertAdjacentHTML('afterbegin', `
-            <button class="tool-button" id="clearChat" title="Очистить историю">
+            <button class="tool-button" id="clearChat" title="${t('clearHistory')}">
                 <i class="fas fa-trash"></i>
             </button>
         `);
         
         // Обработчик для кнопки очистки истории
         document.getElementById('clearChat').addEventListener('click', () => {
-            if (confirm('Вы уверены, что хотите очистить историю чата?')) {
+            if (confirm(t('clearConfirm'))) {
                 clearChatHistory();
             }
         });
@@ -1494,6 +1770,47 @@
         setTimeout(() => {
             document.body.classList.remove('has-overlay');
         }, 3500);
+
+        // Функция для обработки блоков кода после рендеринга Markdown
+        function processCodeBlocks(container) {
+            const preBlocks = container.querySelectorAll('pre');
+            preBlocks.forEach(pre => {
+                // Проверяем, не добавлена ли уже кнопка копирования
+                if (pre.querySelector('.code-header')) return;
+                
+                const code = pre.querySelector('code');
+                if (!code) return;
+                
+                // Определяем язык
+                let language = 'текст';
+                if (code.className) {
+                    const langMatch = code.className.match(/language-(\w+)/);
+                    if (langMatch) language = langMatch[1];
+                }
+                
+                // Создаем заголовок с меткой языка и кнопкой копирования
+                const header = document.createElement('div');
+                header.className = 'code-header';
+                
+                const langLabel = document.createElement('span');
+                langLabel.className = 'code-language-label';
+                langLabel.textContent = language;
+                
+                const copyButton = document.createElement('button');
+                copyButton.className = 'code-copy-button';
+                copyButton.innerHTML = '<i class="fas fa-copy"></i> Копировать';
+                copyButton.onclick = function() { copyCodeBlock(this); };
+                
+                header.appendChild(langLabel);
+                header.appendChild(copyButton);
+                
+                // Добавляем заголовок в начало блока pre
+                pre.insertBefore(header, pre.firstChild);
+                
+                // Добавляем класс для стилизации
+                pre.classList.add('has-header');
+            });
+        }
     </script>
 </body>
 </html> 
