@@ -379,23 +379,23 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: transparent;
+            background-color: var(--bg-color);
             padding: 20px;
             backdrop-filter: blur(8px);
             z-index: 1000;
+            transition: all 0.2s ease;
         }
 
         .input-wrapper {
             max-width: 1000px;
             margin: 0 auto;
             position: relative;
-            padding: 0 20px;
         }
 
         .input-group {
             display: flex;
             gap: 12px;
-            align-items: center;
+            align-items: flex-end;
             background-color: var(--input-bg);
             border-radius: 24px;
             padding: 8px 8px 8px 20px;
@@ -403,6 +403,8 @@
             border: 1px solid var(--border-color);
             backdrop-filter: blur(8px);
             background: rgba(255, 255, 255, 0.7);
+            min-height: 40px;
+            transition: min-height 0.2s ease;
         }
 
         :root[data-theme="dark"] .input-group {
@@ -1120,11 +1122,13 @@
             padding: 8px;
             outline: none;
             min-height: 24px;
-            line-height: 24px;
+            line-height: 1.5;
             resize: none;
             font-family: inherit;
             overflow-y: auto;
             max-height: 150px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         textarea#userInput::placeholder {
@@ -1134,6 +1138,8 @@
         /* Адаптивные стили для input-group при многострочном вводе */
         .input-group {
             align-items: flex-end;
+            min-height: 40px;
+            transition: min-height 0.2s ease;
         }
 
         /* Стили для мобильных устройств */
@@ -1662,10 +1668,9 @@
                 }, 500);
             }
             
-            // Добавляем сообщение пользователя
-            addMessage(prompt, true);
-
-            // Создаем сообщение от ассистента
+            // Удаляем эту строку, чтобы избежать дублирования сообщения пользователя
+            // addMessage(prompt, true);
+            
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message';
             
@@ -1703,13 +1708,24 @@
                 
                 // Добавляем историю диалога (не более 10 последних сообщений для экономии токенов)
                 const recentHistory = chatHistory.slice(-10);
-                messages.push(...recentHistory);
                 
-                // Добавляем текущий запрос пользователя
-                messages.push({
-                    role: 'user',
-                    content: prompt
-                });
+                // Проверяем, не является ли последнее сообщение в истории сообщением пользователя с тем же текстом
+                const lastMessage = recentHistory.length > 0 ? recentHistory[recentHistory.length - 1] : null;
+                
+                // Если последнее сообщение не совпадает с текущим запросом пользователя, добавляем все сообщения из истории
+                if (!lastMessage || lastMessage.role !== 'user' || lastMessage.content !== prompt) {
+                    messages.push(...recentHistory);
+                    
+                    // Добавляем текущий запрос пользователя
+                    messages.push({
+                        role: 'user',
+                        content: prompt
+                    });
+                } else {
+                    // Если последнее сообщение в истории уже содержит текущий запрос пользователя,
+                    // добавляем все сообщения из истории, кроме последнего (чтобы избежать дублирования)
+                    messages.push(...recentHistory);
+                }
                 
                 const response = await puter.ai.chat(messages, {
                     testMode: !isSignedIn,
@@ -1823,11 +1839,16 @@
             
             input.value = '';
             sendButton.disabled = true;
+            
+            // Добавляем сообщение пользователя в чат
+            addMessage(prompt, true);
+            
             await streamResponse(prompt);
         });
 
         document.getElementById('userInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); // Предотвращаем перенос строки
                 document.getElementById('sendMessage').click();
             }
         });
@@ -2374,12 +2395,9 @@
 
         // Улучшаем обработку клавиатуры для мобильных устройств
         document.getElementById('userInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                // Проверяем, не нажата ли клавиша Shift (для переноса строки)
-                if (!e.shiftKey) {
-                    e.preventDefault(); // Предотвращаем перенос строки
-                    document.getElementById('sendMessage').click();
-                }
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); // Предотвращаем перенос строки
+                document.getElementById('sendMessage').click();
             }
         });
         
@@ -2388,10 +2406,20 @@
             const sendButton = document.getElementById('sendMessage');
             sendButton.disabled = !this.value.trim();
             
-            // Автоматически изменяем высоту поля ввода в зависимости от содержимого
+            // Сбрасываем высоту, чтобы правильно измерить scrollHeight
             this.style.height = 'auto';
-            const newHeight = Math.min(this.scrollHeight, 150); // Ограничиваем максимальную высоту
+            
+            // Устанавливаем новую высоту на основе содержимого
+            const newHeight = Math.min(this.scrollHeight, 150);
             this.style.height = newHeight + 'px';
+            
+            // Обновляем высоту input-group
+            const inputGroup = this.closest('.input-group');
+            inputGroup.style.minHeight = (newHeight + 16) + 'px'; // 16px для паддингов
+            
+            // Обновляем отступ для chat-container
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.style.marginBottom = (newHeight + 80) + 'px'; // 80px для дополнительного пространства
         });
     </script>
 </body>
