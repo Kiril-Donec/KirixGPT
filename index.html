@@ -478,29 +478,12 @@
         }
 
         .tools {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             display: flex;
             gap: 8px;
-            margin-right: 16px;
-        }
-
-        .tool-button {
-            background: none;
-            border: none;
-            color: var(--secondary-text);
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-        }
-
-        .tool-button:hover {
-            background-color: var(--tool-button-bg);
-            color: var(--text-color);
+            z-index: 1001;
         }
 
         #clearChat {
@@ -1180,14 +1163,6 @@
         <div class="header">
             <div class="header-title">KirixGPT</div>
             <div class="header-controls">
-                <div class="tools">
-                    <button class="tool-button" id="clearChat" title="Очистить историю">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    <button class="tool-button" id="generateImage" title="Сгенерировать изображение">
-                        <i class="fas fa-image"></i>
-                    </button>
-                </div>
                 <div class="language-selector">
                     <button class="lang-button" onclick="changeLanguage('uk')">UK</button>
                     <button class="lang-button" onclick="changeLanguage('en')">EN</button>
