@@ -781,6 +781,142 @@
                 margin-top: 8px;
             }
         }
+        
+        /* Добавляем расширенные стили для мобильных устройств */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 18px;
+            }
+            
+            .header-controls {
+                gap: 10px;
+            }
+            
+            .language-selector {
+                margin-right: 8px;
+            }
+            
+            .container {
+                margin-top: 50px;
+                padding: 10px;
+            }
+            
+            .chat-container {
+                padding: 10px;
+                margin-bottom: 80px;
+            }
+            
+            .message-content {
+                max-width: 95%;
+                padding: 12px;
+                font-size: 14px;
+            }
+            
+            .input-container {
+                padding: 10px;
+            }
+            
+            .input-wrapper {
+                padding: 0 10px;
+            }
+            
+            .input-group {
+                padding: 6px 6px 6px 15px;
+            }
+            
+            input[type="text"] {
+                font-size: 14px;
+            }
+            
+            /* Улучшаем отображение таблиц на мобильных устройствах */
+            .message-content .table-wrapper {
+                max-width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            /* Добавляем индикатор прокрутки для таблиц */
+            .message-content .table-wrapper::after {
+                content: '← прокрутите →';
+                display: block;
+                text-align: center;
+                font-size: 12px;
+                color: var(--secondary-text);
+                padding: 5px;
+                opacity: 0.7;
+            }
+            
+            /* Улучшаем отображение кода на мобильных устройствах */
+            .message-content pre {
+                max-width: 100%;
+                font-size: 13px;
+            }
+            
+            /* Уменьшаем размер кнопок */
+            #attachFile, #sendMessage, #clearChat, .theme-toggle {
+                width: 32px;
+                height: 32px;
+            }
+            
+            /* Улучшаем отображение анимации загрузки */
+            .intro-logo {
+                font-size: 64px;
+            }
+            
+            /* Улучшаем отображение приветственного сообщения */
+            .welcome-message .message-content {
+                font-size: 20px;
+            }
+            
+            .welcome-message i {
+                font-size: 36px;
+            }
+        }
+        
+        /* Дополнительные стили для очень маленьких экранов */
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px;
+            }
+            
+            .header-title {
+                font-size: 16px;
+            }
+            
+            .lang-button {
+                padding: 3px 6px;
+                font-size: 12px;
+            }
+            
+            .message-content {
+                max-width: 100%;
+                padding: 10px;
+                font-size: 13px;
+            }
+            
+            .message-header {
+                font-size: 12px;
+            }
+            
+            .copy-button {
+                padding: 3px 6px;
+                font-size: 10px;
+            }
+            
+            .code-header {
+                height: 30px;
+            }
+            
+            .code-language-label {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
+            
+            .code-copy-button {
+                padding: 3px 8px;
+                font-size: 10px;
+            }
+        }
 
         .welcome-message {
             position: absolute;
@@ -885,6 +1021,132 @@
             padding: 0 12px;
             z-index: 50;
         }
+
+        /* Добавляем стили для обертки таблиц в контейнер с горизонтальной прокруткой */
+        .message-content .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin: 8px 0;
+            position: relative;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        /* Обертываем все таблицы в контейнер с прокруткой */
+        .message-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 0;
+            min-width: 500px; /* Минимальная ширина таблицы */
+        }
+
+        /* Стили для мобильных устройств */
+        body.mobile-device {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body.mobile-device .message-content {
+            -webkit-touch-callout: none; /* Запрещаем контекстное меню на iOS */
+        }
+
+        body.mobile-device .table-wrapper.scrollable::after {
+            content: '← прокрутите →';
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            color: var(--secondary-text);
+            padding: 5px;
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+
+        /* Улучшаем отображение кнопок на мобильных устройствах */
+        body.mobile-device button {
+            min-height: 36px;
+            min-width: 36px;
+        }
+
+        body.mobile-device .input-group {
+            padding: 8px 8px 8px 15px;
+        }
+
+        body.mobile-device #sendMessage {
+            width: 40px;
+            height: 40px;
+        }
+
+        body.mobile-device #attachFile {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Улучшаем отображение выпадающего меню на мобильных устройствах */
+        body.mobile-device .auth-dropdown {
+            right: -10px;
+            min-width: 220px;
+        }
+
+        body.mobile-device .auth-dropdown-item {
+            padding: 12px 16px;
+        }
+
+        /* Улучшаем отображение кода на мобильных устройствах */
+        body.mobile-device .message-content pre {
+            padding-top: 36px;
+        }
+
+        body.mobile-device .code-header {
+            height: 36px;
+        }
+
+        body.mobile-device .code-copy-button {
+            padding: 6px 12px;
+        }
+
+        /* Стили для textarea вместо input */
+        textarea#userInput {
+            flex-grow: 1;
+            background-color: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 15px;
+            padding: 8px;
+            outline: none;
+            min-height: 24px;
+            line-height: 24px;
+            resize: none;
+            font-family: inherit;
+            overflow-y: auto;
+            max-height: 150px;
+        }
+
+        textarea#userInput::placeholder {
+            color: var(--secondary-text);
+        }
+
+        /* Адаптивные стили для input-group при многострочном вводе */
+        .input-group {
+            align-items: flex-end;
+        }
+
+        /* Стили для мобильных устройств */
+        @media (max-width: 768px) {
+            .input-group {
+                align-items: flex-end;
+            }
+            
+            textarea#userInput {
+                font-size: 14px;
+                padding: 6px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -937,7 +1199,7 @@
                         <button class="tool-button" id="attachFile" title="Прикрепить файл">
                             <i class="fas fa-paperclip"></i>
                         </button>
-                        <input type="text" id="userInput" placeholder="Спросите что-нибудь...">
+                        <textarea id="userInput" placeholder="Спросите что-нибудь..." rows="1"></textarea>
                         <button id="sendMessage" disabled>
                             <i class="fas fa-arrow-up"></i>
                         </button>
@@ -1290,6 +1552,9 @@
                 codeBlocks.forEach(block => {
                     hljs.highlightElement(block);
                 });
+                
+                // Оборачиваем таблицы в контейнер с прокруткой
+                wrapTablesInScrollContainer(messageDiv);
             }
             
             chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -1397,7 +1662,10 @@
                 }, 500);
             }
             
+            // Добавляем сообщение пользователя
             addMessage(prompt, true);
+
+            // Создаем сообщение от ассистента
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message';
             
@@ -1475,6 +1743,9 @@
                                 codeBlocks.forEach(block => {
                                     hljs.highlightElement(block);
                                 });
+                                
+                                // Оборачиваем таблицы в контейнер с прокруткой
+                                wrapTablesInScrollContainer(formattedContainer);
                             } catch (e) {
                                 console.error('Ошибка при обработке Markdown:', e);
                                 formattedContainer.textContent = fullText;
@@ -1507,6 +1778,9 @@
                     codeBlocks.forEach(block => {
                         hljs.highlightElement(block);
                     });
+                    
+                    // Оборачиваем таблицы в контейнер с прокруткой
+                    wrapTablesInScrollContainer(formattedContainer);
                 } catch (e) {
                     console.error('Ошибка при обработке Markdown:', e);
                     formattedContainer.textContent = fullText;
@@ -1723,28 +1997,192 @@
         });
 
         function copyMessageContent(button) {
-            const content = button.parentElement.cloneNode(true);
-            const copyButton = content.querySelector('.copy-button');
-            copyButton.remove();
+            const messageDiv = button.closest('.message');
             
-            // Получаем текст в формате Markdown, если возможно
-            let text;
+            // Получаем контент сообщения без кнопки копирования
+            const content = messageDiv.querySelector('.message-content').cloneNode(true);
+            const copyButtons = content.querySelectorAll('.copy-button, .code-copy-button');
+            copyButtons.forEach(btn => btn.remove());
+            
+            // Создаем временный элемент для получения HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.appendChild(content);
+            
+            // Улучшаем стили для таблиц, чтобы они красиво отображались при вставке
+            const tables = content.querySelectorAll('table');
+            tables.forEach(table => {
+                // Добавляем атрибуты для Word и других редакторов
+                table.setAttribute('border', '1');
+                table.setAttribute('cellspacing', '0');
+                table.setAttribute('cellpadding', '8');
+                table.style.borderCollapse = 'collapse';
+                table.style.width = '100%';
+                table.style.backgroundColor = '#ffffff';
+                table.style.fontFamily = 'Arial, sans-serif';
+                table.style.fontSize = '12pt';
+                table.style.borderColor = '#000000';
+                table.style.borderWidth = '1px';
+                table.style.borderStyle = 'solid';
+                table.style.tableLayout = 'fixed';
+                
+                // Добавляем стили для ячеек
+                const cells = table.querySelectorAll('th, td');
+                cells.forEach(cell => {
+                    cell.style.border = '1px solid #000000';
+                    cell.style.padding = '8px';
+                    cell.style.verticalAlign = 'middle';
+                    
+                    if (cell.tagName === 'TH') {
+                        cell.style.backgroundColor = '#f2f2f2';
+                        cell.style.fontWeight = 'bold';
+                        cell.style.textAlign = 'center';
+                        cell.style.color = '#000000';
+                    } else {
+                        cell.style.backgroundColor = '#ffffff';
+                        cell.style.color = '#333333';
+                    }
+                    
+                    // Проверяем, содержит ли ячейка только число
+                    if (/^[\d.,]+$/.test(cell.textContent.trim())) {
+                        cell.style.textAlign = 'right';
+                    }
+                });
+                
+                // Добавляем зебра-стиль для строк таблицы
+                const rows = table.querySelectorAll('tr');
+                rows.forEach((row, index) => {
+                    // Пропускаем строки заголовков
+                    if (row.querySelector('th')) return;
+                    
+                    // Добавляем зебра-стиль для четных строк
+                    if (index % 2 === 1) {
+                        const cells = row.querySelectorAll('td');
+                        cells.forEach(cell => {
+                            cell.style.backgroundColor = '#f9f9f9';
+                        });
+                    }
+                });
+                
+                // Удаляем обертку таблицы, если она есть
+                if (table.parentElement.classList.contains('table-wrapper')) {
+                    const wrapper = table.parentElement;
+                    wrapper.parentNode.insertBefore(table, wrapper);
+                    wrapper.parentNode.removeChild(wrapper);
+                }
+            });
+            
+            // Получаем форматированный HTML для копирования
+            const htmlContent = tempDiv.innerHTML;
             
             // Проверяем, есть ли у сообщения атрибут с оригинальным Markdown
-            const messageDiv = button.closest('.message');
+            let markdownText = '';
             if (messageDiv && messageDiv.dataset.originalMarkdown) {
                 // Если есть сохраненный Markdown, используем его
-                text = messageDiv.dataset.originalMarkdown;
-            } else if (content.querySelector('pre code')) {
-                // Если есть блок кода, извлекаем его содержимое
-                const codeBlock = content.querySelector('pre code');
-                text = codeBlock.textContent;
-            } else {
-                // Пытаемся восстановить Markdown из HTML
-                text = convertHtmlToMarkdown(content);
+                markdownText = messageDiv.dataset.originalMarkdown;
             }
             
-            navigator.clipboard.writeText(text).then(() => {
+            // Проверяем, поддерживается ли современный API буфера обмена
+            if (navigator.clipboard && navigator.clipboard.write && window.ClipboardItem) {
+                try {
+                    // Используем современный API буфера обмена для копирования как HTML, так и текста
+                    const clipboardItem = new ClipboardItem({
+                        'text/html': new Blob([
+                            '<!DOCTYPE html><html><head><meta charset="utf-8"><style>' +
+                            'table { border-collapse: collapse; width: 100%; border: 1px solid #000; }' +
+                            'th, td { border: 1px solid #000; padding: 8px; }' +
+                            'th { background-color: #f2f2f2; font-weight: bold; text-align: center; }' +
+                            'tr:nth-child(even) td { background-color: #f9f9f9; }' +
+                            '</style></head><body>' + 
+                            htmlContent + 
+                            '</body></html>'
+                        ], { type: 'text/html' }),
+                        'text/plain': new Blob([markdownText || content.textContent], { type: 'text/plain' })
+                    });
+                    
+                    navigator.clipboard.write([clipboardItem]).then(() => {
+                        showCopySuccess(button);
+                    }).catch(err => {
+                        console.error('Ошибка при копировании (современный API):', err);
+                        // Запасной вариант - копируем только текст
+                        fallbackCopy(markdownText || content.textContent, button);
+                    });
+                } catch (e) {
+                    console.error('Ошибка при использовании ClipboardItem API:', e);
+                    // Запасной вариант для браузеров без поддержки ClipboardItem
+                    fallbackCopy(markdownText || content.textContent, button);
+                }
+            } else {
+                // Запасной вариант для мобильных устройств и старых браузеров
+                fallbackCopy(markdownText || content.textContent, button);
+            }
+        }
+        
+        // Функция для отображения успешного копирования
+        function showCopySuccess(button) {
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> ' + t('copied');
+            setTimeout(() => {
+                button.innerHTML = originalText;
+            }, 2000);
+        }
+        
+        // Запасной метод копирования только текста
+        function fallbackCopy(text, button) {
+            // Создаем временный элемент для копирования
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';  // Предотвращаем прокрутку до элемента
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            
+            // Выбираем текст и пытаемся скопировать
+            textarea.select();
+            
+            try {
+                // Пытаемся использовать document.execCommand для старых браузеров
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopySuccess(button);
+                } else {
+                    throw new Error('Не удалось скопировать текст');
+                }
+            } catch (err) {
+                console.error('Ошибка при копировании (запасной метод):', err);
+                button.innerHTML = '<i class="fas fa-times"></i> ' + t('error');
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-copy"></i> ' + t('copy');
+                }, 2000);
+                
+                // Для мобильных устройств показываем подсказку
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    alert('Для копирования выделите текст вручную и используйте стандартное меню копирования вашего устройства');
+                }
+            }
+            
+            // Удаляем временный элемент
+            document.body.removeChild(textarea);
+        }
+        
+        function copyCodeBlock(button) {
+            // Находим родительский pre элемент
+            const preElement = button.closest('pre');
+            if (!preElement) {
+                console.error('Не найден родительский элемент pre');
+                return;
+            }
+            
+            // Находим элемент code внутри pre
+            const codeElement = preElement.querySelector('code');
+            if (!codeElement) {
+                console.error('Не найден элемент code внутри pre');
+                return;
+            }
+            
+            // Получаем текст кода
+            const codeText = codeElement.textContent;
+            
+            // Копируем в буфер обмена
+            navigator.clipboard.writeText(codeText).then(() => {
                 const originalText = button.innerHTML;
                 button.innerHTML = '<i class="fas fa-check"></i> ' + t('copied');
                 setTimeout(() => {
@@ -1758,170 +2196,6 @@
                 }, 2000);
             });
         }
-
-        // Функция для преобразования HTML обратно в Markdown
-        function convertHtmlToMarkdown(element) {
-            let markdown = '';
-            
-            // Получаем все дочерние элементы
-            const children = element.childNodes;
-            
-            for (const node of children) {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    // Текстовый узел
-                    markdown += node.textContent;
-                } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    // Элемент
-                    const tagName = node.tagName.toLowerCase();
-                    
-                    switch (tagName) {
-                        case 'h1':
-                            markdown += '# ' + node.textContent + '\n\n';
-                            break;
-                        case 'h2':
-                            markdown += '## ' + node.textContent + '\n\n';
-                            break;
-                        case 'h3':
-                            markdown += '### ' + node.textContent + '\n\n';
-                            break;
-                        case 'h4':
-                            markdown += '#### ' + node.textContent + '\n\n';
-                            break;
-                        case 'h5':
-                            markdown += '##### ' + node.textContent + '\n\n';
-                            break;
-                        case 'h6':
-                            markdown += '###### ' + node.textContent + '\n\n';
-                            break;
-                        case 'p':
-                            markdown += convertHtmlToMarkdown(node) + '\n\n';
-                            break;
-                        case 'strong':
-                        case 'b':
-                            markdown += '**' + node.textContent + '**';
-                            break;
-                        case 'em':
-                        case 'i':
-                            markdown += '*' + node.textContent + '*';
-                            break;
-                        case 'a':
-                            markdown += '[' + node.textContent + '](' + node.getAttribute('href') + ')';
-                            break;
-                        case 'code':
-                            if (node.parentNode.tagName.toLowerCase() === 'pre') {
-                                // Блок кода
-                                let language = '';
-                                if (node.className) {
-                                    const match = node.className.match(/language-(\w+)/);
-                                    if (match) language = match[1];
-                                }
-                                markdown += '```' + language + '\n' + node.textContent + '\n```\n\n';
-                            } else {
-                                // Строчный код
-                                markdown += '`' + node.textContent + '`';
-                            }
-                            break;
-                        case 'pre':
-                            // Пропускаем, так как обрабатываем в case 'code'
-                            break;
-                        case 'ul':
-                            markdown += convertListToMarkdown(node, '*') + '\n';
-                            break;
-                        case 'ol':
-                            markdown += convertListToMarkdown(node, '1.') + '\n';
-                            break;
-                        case 'blockquote':
-                            markdown += '> ' + convertHtmlToMarkdown(node).replace(/\n/g, '\n> ') + '\n\n';
-                            break;
-                        case 'hr':
-                            markdown += '---\n\n';
-                            break;
-                        case 'table':
-                            markdown += convertTableToMarkdown(node) + '\n\n';
-                            break;
-                        case 'br':
-                            markdown += '\n';
-                            break;
-                        case 'div':
-                        case 'span':
-                            // Для div и span просто обрабатываем содержимое
-                            markdown += convertHtmlToMarkdown(node);
-                            break;
-                        case 'button':
-                            // Пропускаем кнопки
-                            break;
-                        default:
-                            // Для остальных элементов просто берем текст
-                            markdown += node.textContent;
-                    }
-                }
-            }
-            
-            return markdown;
-        }
-
-        // Функция для преобразования списков в Markdown
-        function convertListToMarkdown(listElement, marker) {
-            let markdown = '';
-            const items = listElement.querySelectorAll('li');
-            let counter = 1;
-            
-            items.forEach(item => {
-                const prefix = marker === '1.' ? counter + '.' : marker;
-                markdown += prefix + ' ' + convertHtmlToMarkdown(item) + '\n';
-                counter++;
-            });
-            
-            return markdown;
-        }
-
-        // Функция для преобразования таблиц в Markdown
-        function convertTableToMarkdown(tableElement) {
-            let markdown = '';
-            
-            // Получаем заголовки
-            const headers = Array.from(tableElement.querySelectorAll('th')).map(th => th.textContent.trim());
-            
-            // Добавляем строку заголовков
-            markdown += '| ' + headers.join(' | ') + ' |\n';
-            
-            // Добавляем разделительную строку
-            markdown += '| ' + headers.map(() => '---').join(' | ') + ' |\n';
-            
-            // Добавляем строки данных
-            const rows = tableElement.querySelectorAll('tr');
-            rows.forEach(row => {
-                // Пропускаем строку заголовков
-                if (row.querySelector('th')) return;
-                
-                const cells = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
-                markdown += '| ' + cells.join(' | ') + ' |\n';
-            });
-            
-            return markdown;
-        }
-
-        // Добавляем кнопку очистки истории в инструменты
-        document.querySelector('.tools').insertAdjacentHTML('afterbegin', `
-            <button class="tool-button" id="clearChat" title="${t('clearHistory')}">
-                <i class="fas fa-trash"></i>
-            </button>
-        `);
-        
-        // Обработчик для кнопки очистки истории
-        document.getElementById('clearChat').addEventListener('click', () => {
-            if (confirm(t('clearConfirm'))) {
-                clearChatHistory();
-            }
-        });
-        
-        // Загружаем историю чата при загрузке страницы
-        loadChatHistory();
-
-        document.body.classList.add('has-overlay');
-        setTimeout(() => {
-            document.body.classList.remove('has-overlay');
-        }, 3500);
 
         // Функция для обработки блоков кода после рендеринга Markdown
         function processCodeBlocks(container) {
@@ -1964,111 +2238,13 @@
             });
         }
 
-        function copyCodeBlock(button) {
-            // Находим родительский pre элемент
-            const preElement = button.closest('pre');
-            if (!preElement) {
-                console.error('Не найден родительский элемент pre');
-                return;
-            }
-            
-            // Находим элемент code внутри pre
-            const codeElement = preElement.querySelector('code');
-            if (!codeElement) {
-                console.error('Не найден элемент code внутри pre');
-                return;
-            }
-            
-            // Получаем текст кода
-            const codeText = codeElement.textContent;
-            
-            // Копируем в буфер обмена
-            navigator.clipboard.writeText(codeText).then(() => {
-                const originalText = button.innerHTML;
-                button.innerHTML = '<i class="fas fa-check"></i> ' + t('copied');
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                }, 2000);
-            }).catch(err => {
-                console.error('Ошибка при копировании:', err);
-                button.innerHTML = '<i class="fas fa-times"></i> ' + t('error');
-                setTimeout(() => {
-                    button.innerHTML = '<i class="fas fa-copy"></i> ' + t('copy');
-                }, 2000);
-            });
-        }
-
-        // Функция для прямого перехода на страницу авторизации Puter
-        function redirectToPuterAuth() {
-            // Сохраняем текущий URL для возврата после авторизации
-            localStorage.setItem('auth_redirect_url', window.location.href);
-            
-            // Перенаправляем на страницу авторизации Puter
-            window.location.href = 'https://auth.puter.com/v2/auth?redirect_uri=' + encodeURIComponent(window.location.href);
-        }
-
         // Добавляем обработчик для кнопки входа
         document.getElementById('signIn').addEventListener('click', async () => {
             try {
-                // Проверяем, доступен ли объект puter и метод auth.signIn
-                if (!puter || !puter.auth || typeof puter.auth.signIn !== 'function') {
-                    throw new Error('API Puter не загружен или не доступен. Пожалуйста, обновите страницу и попробуйте снова.');
-                }
-                
-                // Показываем сообщение о процессе авторизации
-                const loadingMessage = addMessage(`<i class="fas fa-spinner fa-spin"></i> <span class="info-message">Выполняется вход в аккаунт...</span>`, false);
-                
-                // Используем прямой метод авторизации без всплывающего окна
-                redirectToPuterAuth();
-                return;
-                
-                /* Закомментированный код с попыткой использования всплывающего окна
-                try {
-                    // Сначала пробуем метод с предварительным созданием окна
-                    const popupWindow = window.open('about:blank', 'puter_auth', 'width=600,height=600');
-                    
-                    if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
-                        // Если окно не открылось, значит браузер блокирует всплывающие окна
-                        throw new Error('Браузер блокирует всплывающие окна');
-                    }
-                    
-                    // Вызываем метод signIn
-                    await puter.auth.signIn();
-                } catch (popupError) {
-                    console.warn('Ошибка при использовании всплывающего окна:', popupError);
-                    
-                    // Если не удалось использовать всплывающее окно, показываем сообщение
-                    if (loadingMessage && loadingMessage.parentNode) {
-                        loadingMessage.parentNode.removeChild(loadingMessage);
-                    }
-                    
-                    // Предлагаем пользователю альтернативный способ входа
-                    const confirmRedirect = confirm('Для входа в аккаунт необходимо перейти на страницу авторизации Puter. После авторизации вы будете перенаправлены обратно. Продолжить?');
-                    
-                    if (confirmRedirect) {
-                        // Сохраняем текущий URL для возврата после авторизации
-                        localStorage.setItem('auth_redirect_url', window.location.href);
-                        
-                        // Перенаправляем на страницу авторизации Puter
-                        // Используем официальный URL для авторизации
-                        window.location.href = 'https://auth.puter.com/v2/auth?redirect_uri=' + encodeURIComponent(window.location.href);
-                        return;
-                    } else {
-                        throw new Error('Авторизация отменена пользователем');
-                    }
-                }
-                */
-                
+                // Вызываем метод signIn() напрямую из обработчика клика
+                await puter.auth.signIn();
                 // После успешного входа обновляем статус авторизации
-                await checkAuthStatus();
-                
-                // Удаляем сообщение о загрузке
-                if (loadingMessage && loadingMessage.parentNode) {
-                    loadingMessage.parentNode.removeChild(loadingMessage);
-                }
-                
-                // Показываем сообщение об успешном входе
-                addMessage(`<i class="fas fa-check-circle"></i> <span class="success-message">Вход выполнен успешно!</span>`);
+                checkAuthStatus();
             } catch (error) {
                 console.error('Ошибка при входе:', error);
                 addMessage(`<i class="fas fa-exclamation-circle"></i> <span class="error-message">Ошибка при входе: ${error.message}</span>`);
@@ -2078,47 +2254,144 @@
         // Добавляем обработчик для кнопки выхода
         document.getElementById('signOut').addEventListener('click', async () => {
             try {
-                // Показываем сообщение о процессе выхода
-                const loadingMessage = addMessage(`<i class="fas fa-spinner fa-spin"></i> <span class="info-message">Выполняется выход из аккаунта...</span>`, false);
-                
                 await puter.auth.signOut();
-                await checkAuthStatus();
-                
+                checkAuthStatus();
                 const dropdown = document.querySelector('.auth-dropdown');
                 dropdown.classList.remove('show');
-                
-                // Удаляем сообщение о загрузке
-                if (loadingMessage && loadingMessage.parentNode) {
-                    loadingMessage.parentNode.removeChild(loadingMessage);
-                }
-                
-                // Показываем сообщение об успешном выходе
-                addMessage(`<i class="fas fa-check-circle"></i> <span class="success-message">Выход выполнен успешно!</span>`);
             } catch (error) {
                 console.error('Ошибка при выходе:', error);
                 addMessage(`<i class="fas fa-exclamation-circle"></i> <span class="error-message">Ошибка при выходе: ${error.message}</span>`);
             }
         });
 
-        // Проверяем, не вернулись ли мы после редиректа авторизации
-        document.addEventListener('DOMContentLoaded', async () => {
-            const redirectUrl = localStorage.getItem('auth_redirect_url');
-            if (redirectUrl) {
-                // Удаляем сохраненный URL
-                localStorage.removeItem('auth_redirect_url');
+        // Добавляем кнопку очистки истории в инструменты
+        document.querySelector('.tools').insertAdjacentHTML('afterbegin', `
+            <button class="tool-button" id="clearChat" title="${t('clearHistory')}">
+                <i class="fas fa-trash"></i>
+            </button>
+        `);
+        
+        // Обработчик для кнопки очистки истории
+        document.getElementById('clearChat').addEventListener('click', () => {
+            if (confirm(t('clearConfirm'))) {
+                clearChatHistory();
+            }
+        });
+        
+        // Загружаем историю чата при загрузке страницы
+        loadChatHistory();
+
+        document.body.classList.add('has-overlay');
+        setTimeout(() => {
+            document.body.classList.remove('has-overlay');
+        }, 3500);
+
+        // Функция для обертывания таблиц в контейнер с горизонтальной прокруткой
+        function wrapTablesInScrollContainer(container) {
+            const tables = container.querySelectorAll('table');
+            tables.forEach(table => {
+                // Проверяем, не обернута ли таблица уже
+                if (table.parentElement.classList.contains('table-wrapper')) return;
                 
-                // Проверяем статус авторизации
-                try {
-                    const isSignedIn = await puter.auth.isSignedIn();
-                    if (isSignedIn) {
-                        // Если пользователь авторизован, показываем сообщение об успешном входе
-                        addMessage(`<i class="fas fa-check-circle"></i> <span class="success-message">Вход выполнен успешно!</span>`);
-                        await checkAuthStatus();
+                // Создаем обертку для таблицы
+                const wrapper = document.createElement('div');
+                wrapper.className = 'table-wrapper';
+                
+                // Заменяем таблицу на обертку с таблицей внутри
+                table.parentNode.insertBefore(wrapper, table);
+                wrapper.appendChild(table);
+            });
+        }
+
+        // Добавляем мета-тег для правильного масштабирования на мобильных устройствах
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверяем, существует ли уже мета-тег viewport
+            let viewportMeta = document.querySelector('meta[name="viewport"]');
+            
+            if (!viewportMeta) {
+                // Если нет, создаем новый
+                viewportMeta = document.createElement('meta');
+                viewportMeta.name = 'viewport';
+                viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+                document.head.appendChild(viewportMeta);
+            } else {
+                // Если есть, обновляем его
+                viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+            }
+            
+            // Добавляем обработчик для определения мобильных устройств
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                document.body.classList.add('mobile-device');
+                
+                // Улучшаем обработку касаний для таблиц
+                document.addEventListener('touchstart', function() {
+                    const tableWrappers = document.querySelectorAll('.table-wrapper');
+                    tableWrappers.forEach(wrapper => {
+                        if (wrapper.scrollWidth > wrapper.clientWidth) {
+                            wrapper.classList.add('scrollable');
+                        }
+                    });
+                }, { passive: true });
+                
+                // Улучшаем обработку фокуса на поле ввода
+                const userInput = document.getElementById('userInput');
+                
+                // Автоматически прокручиваем к полю ввода при фокусе
+                userInput.addEventListener('focus', function() {
+                    // Небольшая задержка для корректной работы на iOS
+                    setTimeout(() => {
+                        window.scrollTo(0, document.body.scrollHeight);
+                    }, 300);
+                });
+                
+                // Добавляем кнопку для скрытия клавиатуры
+                userInput.addEventListener('blur', function() {
+                    // Прокручиваем немного вверх, чтобы показать последнее сообщение
+                    window.scrollTo(0, window.scrollY - 50);
+                });
+                
+                // Улучшаем обработку прокрутки на мобильных устройствах
+                let touchStartY = 0;
+                document.addEventListener('touchstart', function(e) {
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+                
+                document.addEventListener('touchmove', function(e) {
+                    const touchY = e.touches[0].clientY;
+                    const diff = touchStartY - touchY;
+                    
+                    // Если пользователь прокручивает вниз и находится внизу страницы
+                    if (diff > 50 && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+                        // Фокусируемся на поле ввода
+                        userInput.focus();
                     }
-                } catch (error) {
-                    console.error('Ошибка при проверке статуса авторизации после редиректа:', error);
+                }, { passive: true });
+            }
+            
+            // Вызываем функцию обновления интерфейса
+            updateInterface();
+        });
+
+        // Улучшаем обработку клавиатуры для мобильных устройств
+        document.getElementById('userInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                // Проверяем, не нажата ли клавиша Shift (для переноса строки)
+                if (!e.shiftKey) {
+                    e.preventDefault(); // Предотвращаем перенос строки
+                    document.getElementById('sendMessage').click();
                 }
             }
+        });
+        
+        // Добавляем обработчик для автоматического изменения высоты поля ввода
+        document.getElementById('userInput').addEventListener('input', function() {
+            const sendButton = document.getElementById('sendMessage');
+            sendButton.disabled = !this.value.trim();
+            
+            // Автоматически изменяем высоту поля ввода в зависимости от содержимого
+            this.style.height = 'auto';
+            const newHeight = Math.min(this.scrollHeight, 150); // Ограничиваем максимальную высоту
+            this.style.height = newHeight + 'px';
         });
     </script>
 </body>
